@@ -41,6 +41,7 @@ $app->post('/login', function() use ($app) {
         }
     echoResponse(200, $response);
 });
+$app->post('/signUp', function() use ($app) {
     $response = array();
     $r = json_decode($app->request->getBody());
     verifyRequiredParams(array('email', 'name', 'password'),$r->customer);

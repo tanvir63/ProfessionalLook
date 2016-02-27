@@ -13,6 +13,11 @@ app.config(['$routeProvider',
                 templateUrl: 'partials/login.html',
                 controller: 'logoutCtrl'
             })
+            .when('/signup', {
+                title: 'Signup',
+                templateUrl: 'partials/signup.html',
+                controller: 'authCtrl'
+            })
             .when('/dashboard', {
                 title: 'Dashboard',
                 templateUrl: 'partials/dashboard.html',
@@ -39,7 +44,7 @@ app.config(['$routeProvider',
                     $rootScope.email = results.email;
                 } else {
                     var nextUrl = next.$$route.originalPath;
-                    if (nextUrl == '/login') {
+                    if (nextUrl == '/signup' || nextUrl == '/login') {
 
                     } else {
                         $location.path("/login");
