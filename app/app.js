@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ngRoute', 'ngAnimate', 'toaster']);
+var app = angular.module('BeautificationApp', ['ngRoute', 'ngAnimate', 'toaster']);
 
 app.config(['$routeProvider',
   function ($routeProvider) {
@@ -7,7 +7,7 @@ app.config(['$routeProvider',
             title: 'Login',
             templateUrl: 'partials/login.html',
             controller: 'authCtrl'
-        })
+            })
             .when('/logout', {
                 title: 'Logout',
                 templateUrl: 'partials/login.html',

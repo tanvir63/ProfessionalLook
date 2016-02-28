@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="myApp">
+<html lang="en" ng-app="BeautificationApp">
 
   <head>
     <meta charset="utf-8">
