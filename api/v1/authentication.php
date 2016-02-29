@@ -41,6 +41,20 @@ $app->post('/login', function() use ($app) {
         }
     echoResponse(200, $response);
 });
+
+$app->post('/customers', function() use ($app) {
+    $response = array();
+    $db = new DbHandler();
+    $customers = $db->getRecords("SELECT distinct c.customerNumber, c.customerName, c.email, c.address, c.city, c.state, c.postalCode, c.country FROM angularcode_customers c order by c.customerNumber desc");
+    
+    if ($customers != NULL) 
+    {
+        echoResponse(200, $customers);
+    }
+    else
+        echoResponse(200, '');
+});
+
 $app->post('/signUp', function() use ($app) {
     $response = array();
     $r = json_decode($app->request->getBody());
