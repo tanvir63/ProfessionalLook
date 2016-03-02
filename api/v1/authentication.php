@@ -42,9 +42,12 @@ $app->post('/login', function() use ($app) {
     echoResponse(200, $response);
 });
 
-$app->post('/customers', function() use ($app) {
+$app->get('/customers', function() use ($app) {
     $response = array();
     $db = new DbHandler();
+    $r = json_decode($app->request->getBody());
+    
+    
     $customers = $db->getRecords("SELECT distinct c.customerNumber, c.customerName, c.email, c.address, c.city, c.state, c.postalCode, c.country FROM angularcode_customers c order by c.customerNumber desc");
     
     if ($customers != NULL) 
@@ -54,6 +57,47 @@ $app->post('/customers', function() use ($app) {
     else
         echoResponse(200, '');
 });
+
+$app->post('/customer', function() use ($app) {
+    $response = array();
+    $db = new DbHandler();
+    $r = json_decode($app->request->getBody());
+    $id=$r->customerId;
+    $customer = $db->getOneRecord("SELECT distinct c.customerNumber, c.customerName, c.email, c.address, c.city, c.state, c.postalCode, c.country FROM angularcode_customers c where c.customerNumber=$id");
+    
+    if ($customer != NULL) 
+    {
+        echoResponse(200, $customer);
+    }
+    else
+        echoResponse(200, '');
+});
+
+$app->post('/editCustomer', function() use ($app) {
+    $customer = json_decode(file_get_contents("php://input"),true);
+	$id = (int)$customer['id'];
+	$column_names = array('customerName', 'email', 'city', 'address', 'country');
+	$keys = array_keys($customer['customer']);
+	$columns = '';
+	$values = '';
+	foreach($column_names as $desired_key){ // Check the customer received. If key does not exist, insert blank into the array.
+	   if(!in_array($desired_key, $keys)) {
+	   		$$desired_key = '';
+	   }else{
+			$$desired_key = $customer['customer'][$desired_key];
+	   }
+	       $columns = $columns.$desired_key."='".$$desired_key."',";
+   }
+   $query = "UPDATE angularcode_customers SET ".trim($columns,',')." WHERE customerNumber=$id";
+   
+   if(!empty($customer)){
+				$r = $this->mysqli->query($query) or die($this->mysqli->error.__LINE__);
+				$success = array('status' => "Success", "msg" => "Customer ".$id." Updated Successfully.", "data" => $customer);
+				echoResponse(200, $success);
+			}else
+				echoResponse(204, '');	// "No Content" status
+});
+
 
 $app->post('/signUp', function() use ($app) {
     $response = array();
