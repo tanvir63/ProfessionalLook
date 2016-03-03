@@ -43,12 +43,12 @@ $app->post('/login', function() use ($app) {
 });
 
 $app->get('/customers', function() use ($app) {
-	
+	require_once '../libs/ChromePhp.php'; 
     $response = array();
     $db = new DbHandler();
     
     $customers = $db->getRecords("SELECT distinct c.customerNumber, c.customerName, c.email, c.address, c.city, c.state, c.postalCode, c.country FROM angularcode_customers c order by c.customerNumber desc");
-    
+    ChromePhp::log($customers);
     if ($customers != NULL) 
     {
         echoResponse(200, $customers);
@@ -74,9 +74,9 @@ $app->post('/customer', function() use ($app) {
 });
 
 $app->post('/editCustomer', function() use ($app) {
-    require_once '../libs/ChromePhp.php'; 
+    //require_once '../libs/ChromePhp.php'; 
     $customer = json_decode(file_get_contents("php://input"),true);
-    ChromePhp::log($customer);
+    
     $primary_key=array('customerId');
     $table_name=array('angularcode_customers');
 	$column_names = array('customerName', 'email', 'city', 'address', 'country');
@@ -86,7 +86,8 @@ $app->post('/editCustomer', function() use ($app) {
     $r = json_decode($app->request->getBody());
     $id=$r->customerId;
     $update_result = $db->updateTable($customer,$column_names,$primary_key,$table_name);
-    
+    //ChromePhp::log("result is : ");
+    //ChromePhp::log($update_result);
     if ($update_result != NULL) 
     {
         echoResponse(200, $update_result);

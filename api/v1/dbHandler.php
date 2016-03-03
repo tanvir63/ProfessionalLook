@@ -32,6 +32,8 @@ class DbHandler {
                 $result[] = $row;
             }
         }
+        require_once '../libs/ChromePhp.php'; 
+		ChromePhp::log($result);
         return $result;
     }
     
@@ -68,28 +70,33 @@ class DbHandler {
      * Updating record
      */
     public function updateTable($obj, $column_names,$primary_key_name, $table_name) {
-            $c = (array) $obj;
-            $keys = array_keys($c);
-            $data = json_decode(file_get_contents("php://input"),true);
-			$id = (int)$data[$primary_key_name];
-			
-			$columns = '';
-			$values = '';
-			foreach($column_names as $desired_key){ // Check the data received. If key does not exist, insert blank into the array.
-			   if(!in_array($desired_key, $keys)) {
-			   		$$desired_key = '';
-				}else{
-					$$desired_key = $c[$desired_key];
-				}
-				$columns = $columns.$desired_key."='".$$desired_key."',";
-			}
-			$query = "UPDATE ".$table_name." SET ".trim($columns,',')." WHERE ".$primary_key_name."=$id";
-			if(!empty($data)){
-				$r = $this->mysqli->query($query) or die($this->mysqli->error.__LINE__);
-				$success = array('status' => "Success", "msg" => $table_name.$id." Updated Successfully.", "data" => $data);
-				return $success;
-			}else
-				return NULL;	// "No Content" status 
+            require_once '../libs/ChromePhp.php';
+            ChromePhp::log($obj);
+            return null;
+            /**
+ * $c = (array) $obj;
+ *             $keys = array_keys($c);
+ *             $data = json_decode(file_get_contents("php://input"),true);
+ * 			$id = (int)$data[$primary_key_name];
+ * 			
+ * 			$columns = '';
+ * 			$values = '';
+ * 			foreach($column_names as $desired_key){ // Check the data received. If key does not exist, insert blank into the array.
+ * 			   if(!in_array($desired_key, $keys)) {
+ * 			   		$$desired_key = '';
+ * 				}else{
+ * 					$$desired_key = $c[$desired_key];
+ * 				}
+ * 				$columns = $columns.$desired_key."='".$$desired_key."',";
+ * 			}
+ * 			$query = "UPDATE ".$table_name." SET ".trim($columns,',')." WHERE ".$primary_key_name."=$id";
+ * 			if(!empty($data)){
+ * 				$r = $this->mysqli->query($query) or die($this->mysqli->error.__LINE__);
+ * 				$success = array('status' => "Success", "msg" => $table_name.$id." Updated Successfully.", "data" => $data);
+ * 				return $success;
+ * 			}else
+ * 				return NULL;	// "No Content" status 
+ */
     }
     
     public function getSession(){
