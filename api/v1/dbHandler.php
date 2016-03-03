@@ -10,6 +10,7 @@ class DbHandler {
         $db = new dbConnect();
         $this->conn = $db->connect();
     }
+    
     /**
      * Fetching single record
      */
@@ -22,6 +23,8 @@ class DbHandler {
      * Fetching records
      */
     public function getRecords($query) {
+        
+        //echo("<script>console.log('PHP: ".$query."');</script>");
         $r = $this->conn->query($query) or die($this->conn->error.__LINE__);
         $result = array();
         if($r->num_rows > 0){        
@@ -68,7 +71,7 @@ class DbHandler {
             $c = (array) $obj;
             $keys = array_keys($c);
             $data = json_decode(file_get_contents("php://input"),true);
-			$id = (int)$data['id'];
+			$id = (int)$data[$primary_key_name];
 			
 			$columns = '';
 			$values = '';

@@ -28,6 +28,11 @@ app.config(['$routeProvider',
                 templateUrl: 'partials/customers.html',
                 controller: 'customersCtrl'
             })
+            .when('/edit-customer/:customerID', {
+                title: 'Edit Customers',
+                templateUrl: 'partials/edit-customer.html',
+                controller: 'editCustomerCtrl'
+            })
             .when('/', {
                 title: 'Login',
                 templateUrl: 'partials/login.html',

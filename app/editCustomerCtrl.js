@@ -27,10 +27,15 @@ app.controller('editCustomerCtrl', function ($scope, $rootScope, $routeParams, $
       $scope.saveCustomer = function(customer) {
         $location.path('/');
         if (customerID <= 0) {
-            services.insertCustomer(customer);
+            alert("add");
+            //services.insertCustomer(customer);
         }
         else {
-            services.updateCustomer(customerID, customer);
+            //services.updateCustomer(customerID, customer);
+            console.log(customer);
+            Data.post('editCustomer',{customer:customer}).then(function (result) {
+                console.log(result);
+            });
         }
     };
 });
