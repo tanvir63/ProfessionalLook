@@ -74,18 +74,21 @@ $app->post('/customer', function() use ($app) {
 });
 
 $app->post('/editCustomer', function() use ($app) {
-    //require_once '../libs/ChromePhp.php'; 
+    require_once '../libs/ChromePhp.php'; 
     $customer = json_decode(file_get_contents("php://input"),true);
-    
-    $primary_key=array('customerId');
-    $table_name=array('angularcode_customers');
+    $primary_key='customerNumber';
+    $table_name='angularcode_customers';
 	$column_names = array('customerName', 'email', 'city', 'address', 'country');
-    
     $response = array();
     $db = new DbHandler();
     $r = json_decode($app->request->getBody());
-    $id=$r->customerId;
-    $update_result = $db->updateTable($customer,$column_names,$primary_key,$table_name);
+    //ChromePhp::log($r);
+    //ChromePhp::log("r is ");
+    //ChromePhp::log($r);
+    
+    //$id=$r->customer->customerNumber;
+    
+    $update_result = $db->updateTable($customer['customer'],$column_names,$primary_key,$table_name);
     //ChromePhp::log("result is : ");
     //ChromePhp::log($update_result);
     if ($update_result != NULL) 
