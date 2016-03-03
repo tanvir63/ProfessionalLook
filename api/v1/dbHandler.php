@@ -70,15 +70,8 @@ class DbHandler {
      * Updating record
      */
     public function updateTable($obj, $column_names,$primary_key_name, $table_name) {
-            require_once '../libs/ChromePhp.php';
-            
-            
             $data = (array) $obj;
-            //ChromePhp::log($data);
             $keys = array_keys($data);
-            //ChromePhp::log($keys);
-            //$data = json_decode(file_get_contents("php://input"),true);
-            //ChromePhp::log($primary_key_name);
   			$id = $data[$primary_key_name];
             
   			$columns = '';
@@ -92,15 +85,10 @@ class DbHandler {
   				$columns = $columns.$desired_key."='".$$desired_key."',";
   			}
             
-            //ChromePhp::log("columns are:");
-            //ChromePhp::log(trim($columns,','));
-            
   			$query = "UPDATE ".$table_name." SET ".trim($columns,',')." WHERE ".$primary_key_name."=$id";
            
   			if(!empty($data)){
-  			   ChromePhp::log("inside");
-  				$r = $this->mysqli->query($query) or die($this->mysqli->error.__LINE__);
-                ChromePhp::log("inside2");
+                $r = $this->conn->query($query) or die($this->conn->error.__LINE__);
   				$success = array('status' => "Success", "msg" => $table_name.$id." Updated Successfully.");
                 ChromePhp::log($success);
   				return $success;
