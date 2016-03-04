@@ -8,12 +8,15 @@ app.controller('editCustomerCtrl', function ($scope, $rootScope, $routeParams, $
     
     $scope.originalCustomer ={};
     $scope.modifiedCustomer={};
-    Data.post('customer',{customerId: customerId}).then(function (result) {
-        $scope.originalCustomer=result;
-        $scope.originalCustomer._id = customerId;
-        $scope.modifiedCustomer = angular.copy($scope.originalCustomer);
-        $scope.modifiedCustomer._id = customerId;
-    });
+    if(customerId>0)
+    {
+        Data.post('customer',{customerId: customerId}).then(function (result) {
+            $scope.originalCustomer=result;
+            $scope.originalCustomer._id = customerId;
+            $scope.modifiedCustomer = angular.copy($scope.originalCustomer);
+            $scope.modifiedCustomer._id = customerId;
+        });
+    }
 
     $scope.isClean = function() {
         return angular.equals($scope.originalCustomer, $scope.modifiedCustomer);
@@ -27,14 +30,17 @@ app.controller('editCustomerCtrl', function ($scope, $rootScope, $routeParams, $
 
     $scope.saveCustomer = function(customer) {
         $location.path('/');
-        if (customerId <= 0) {
-            //services.insertCustomer(customer);
+        $controllerName="";
+        if (customerId > 0) {
+            $controllerName='editCustomer';
         }
-        else {
-            //services.updateCustomer(customerId, customer);
-            Data.post('editCustomer',{customer:customer}).then(function (result) {
+        else
+        {
+            $controllerName='addCustomer';
+        }
+        
+        Data.post($controllerName,{customer:customer}).then(function (result) {
               //console.log(result);
-            });
-        }
+        });
     };
 });

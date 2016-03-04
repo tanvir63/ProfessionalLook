@@ -41,7 +41,6 @@ class DbHandler {
      * Creating new record
      */
     public function insertIntoTable($obj, $column_names, $table_name) {
-        
         $c = (array) $obj;
         $keys = array_keys($c);
         $columns = '';
@@ -56,6 +55,7 @@ class DbHandler {
             $values = $values."'".$$desired_key."',";
         }
         $query = "INSERT INTO ".$table_name."(".trim($columns,',').") VALUES(".trim($values,',').")";
+        
         $r = $this->conn->query($query) or die($this->conn->error.__LINE__);
 
         if ($r) {

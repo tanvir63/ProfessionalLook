@@ -99,6 +99,25 @@ $app->post('/editCustomer', function() use ($app) {
         echoResponse(200, '');
 });
 
+$app->post('/addCustomer', function() use ($app) {
+    require_once '../libs/ChromePhp.php'; 
+    $customer = json_decode(file_get_contents("php://input"),true);
+    $primary_key='customerNumber';
+    $table_name='angularcode_customers';
+	$column_names = array('customerName', 'email', 'city', 'address', 'country');
+    $response = array();
+    $db = new DbHandler();
+    $r = json_decode($app->request->getBody());
+    
+    $update_result = $db->insertIntoTable($customer['customer'],$column_names,$table_name);
+    if ($update_result != NULL) 
+    {
+        echoResponse(200, $update_result);
+    }
+    else
+        echoResponse(200, '');
+});
+
 
 $app->post('/signUp', function() use ($app) {
     $response = array();
