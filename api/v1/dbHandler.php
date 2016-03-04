@@ -67,7 +67,7 @@ class DbHandler {
     }
     
     /**
-     * Updating record
+     * Updating a record
      */
     public function updateTable($obj, $column_names,$primary_key_name, $table_name) {
             $data = (array) $obj;
@@ -97,6 +97,17 @@ class DbHandler {
  
     }
     
+    /**
+     * Deleting a record
+     */
+    public function deleteRecord( $primary_key_name, $primary_key_value, $table_name){
+        $query = "DELETE FROM ".$table_name." WHERE ".$primary_key_name." = ".$primary_key_value;
+        
+        $r = $this->conn->query($query) or die($this->conn->error.__LINE__);
+        $success = array('status' => "Success", "msg" =>"Updated Successfully.");
+        return $success;
+	}
+        
     public function getSession(){
     if (!isset($_SESSION)) {
         session_start();

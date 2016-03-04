@@ -25,7 +25,10 @@ app.controller('editCustomerCtrl', function ($scope, $rootScope, $routeParams, $
     $scope.deleteCustomer = function(customer) {
         $location.path('/');
         if(confirm("Are you sure to delete customer number: "+$scope.originalCustomer._id)==true)
-            Data.delete('deleteCustomer?Id=' + customer.customerNumber);
+        //console.log(customer.customerNumber);
+            Data.post('deleteCustomer',{customerId: customer.customerNumber}).then(function (result) {
+                
+            });
       };
 
     $scope.saveCustomer = function(customer) {

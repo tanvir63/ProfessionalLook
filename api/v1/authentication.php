@@ -118,7 +118,22 @@ $app->post('/addCustomer', function() use ($app) {
         echoResponse(200, '');
 });
 
-
+$app->post('/deleteCustomer', function() use ($app) {
+    $primary_key_name='customerNumber';
+    $table_name='angularcode_customers';
+    
+    $db = new DbHandler();
+    $r = json_decode($app->request->getBody());
+    $id=$r->customerId;
+    
+    $delete_result = $db->deleteRecord($primary_key_name, $id, $table_name);
+    if ($delete_result != NULL) 
+    {
+        echoResponse(200, $delete_result);
+    }
+    else
+        echoResponse(200, '');
+});
 $app->post('/signUp', function() use ($app) {
     $response = array();
     $r = json_decode($app->request->getBody());
