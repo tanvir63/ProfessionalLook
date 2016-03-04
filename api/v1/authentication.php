@@ -134,6 +134,7 @@ $app->post('/deleteCustomer', function() use ($app) {
     else
         echoResponse(200, '');
 });
+
 $app->post('/signUp', function() use ($app) {
     $response = array();
     $r = json_decode($app->request->getBody());
