@@ -32,7 +32,7 @@
 				<th>Address&nbsp;<a ng-click="sort_by('address');"><i class="glyphicon glyphicon-sort"></i></a></th>
 				<th>City&nbsp;<a ng-click="sort_by('city');"><i class="glyphicon glyphicon-sort"></i></a></th>
 				<th>Country&nbsp;<a ng-click="sort_by('country');"><i class="glyphicon glyphicon-sort"></i></a></th>
-				<th>Action</th>
+				<th></th>
 			</thead>
 			<tbody>
 				<tr ng-repeat="data in filtered = (customers | filter:search | orderBy : predicate :reverse) | startFrom:(currentPage-1)*entryLimit | limitTo:entryLimit">
@@ -41,7 +41,7 @@
 					<td>{{data.address}}</td>
 					<td>{{data.city}}</td>
 					<td>{{data.country}}</td>
-					<td><a href="#/edit-customer/{{data.customerNumber}}" class="btn">&nbsp;<i class="glyphicon glyphicon-edit"></i>&nbsp; Edit Customer</a></td>
+					<td><a href="#/edit-customer/{{data.customerNumber}}" class="btn">&nbsp;<i class="glyphicon glyphicon-edit"></i>&nbsp; Edit</a></td>
 				</tr>
 			</tbody>
 		</table>
