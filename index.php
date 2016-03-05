@@ -37,6 +37,7 @@
   <script src="js/angular.min.js"></script>
   <script src="js/angular-route.min.js"></script>
   <script src="js/angular-animate.min.js" ></script>
+  <script src="js/ui-bootstrap-tpls-0.10.0.min.js"></script>
   <script src="js/toaster.js"></script>
   <script src="app/app.js"></script>
   <script src="app/data.js"></script>
