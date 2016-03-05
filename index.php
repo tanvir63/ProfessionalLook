@@ -45,5 +45,6 @@
   <script src="app/authCtrl.js"></script>
   <script src="app/customersCtrl.js"></script>
   <script src="app/editCustomerCtrl.js"></script>
+  <script src="app/startFromFilter.js"></script>
 </html>
 

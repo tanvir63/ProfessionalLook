@@ -1,13 +1,3 @@
-app.filter('startFrom', function() {
-	return function(input, start) {
-		if(input) {
-			start = +start; //parse to int
-			return input.slice(start);
-		}
-		return [];
-	}
-});
-
 app.controller('customersCtrl', function ($scope, $rootScope, $routeParams, $location, $http, Data) {
     Data.get('customers').then(function (results) {
         $scope.customers=results;
