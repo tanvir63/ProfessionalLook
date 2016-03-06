@@ -57,13 +57,18 @@ class DbHandler {
         $query = "INSERT INTO ".$table_name."(".trim($columns,',').") VALUES(".trim($values,',').")";
         
         $r = $this->conn->query($query) or die($this->conn->error.__LINE__);
-
-        if ($r) {
-            $new_row_id = $this->conn->insert_id;
-            return $new_row_id;
-            } else {
-            return NULL;
+        if ($r) 
+        {
+            //$new_row_id = $this->conn->insert_id;
+            $result = array('status' => "Success", "msg" => " Added Successfully.");
+            
+        } 
+        else 
+        {
+            $result= array('status' => "failed", "msg" => " Add failed.");
         }
+        
+        return $result;
     }
     
     /**
@@ -92,9 +97,12 @@ class DbHandler {
   				$success = array('status' => "Success", "msg" => $table_name.$id." Updated Successfully.");
                 ChromePhp::log($success);
   				return $success;
-  			}else
-  				return NULL;	// "No Content" status 
- 
+  			}
+            else
+            {
+  				$failed = array('status' => "Failed", "msg" => $table_name.$id." Update Failed.");	// "No Content" status
+                return $failed; 
+            }
     }
     
     /**
@@ -104,8 +112,20 @@ class DbHandler {
         $query = "DELETE FROM ".$table_name." WHERE ".$primary_key_name." = ".$primary_key_value;
         
         $r = $this->conn->query($query) or die($this->conn->error.__LINE__);
-        $success = array('status' => "Success", "msg" =>"Updated Successfully.");
-        return $success;
+        require_once '../libs/ChromePhp.php'; 
+        ChromePhp::log("delete result is : ");
+			ChromePhp::log($r);
+        if ($r) 
+        {
+            //$new_row_id = $this->conn->insert_id;
+            $result = array('status' => "Success", "msg" => " Deleted Successfully.");
+        } 
+        else 
+        {
+            $result= array('status' => "failed", "msg" => " Delete failed.");
+        }
+        
+        return $result;
 	}
         
     public function getSession(){

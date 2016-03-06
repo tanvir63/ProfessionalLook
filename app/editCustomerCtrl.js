@@ -27,9 +27,9 @@ app.controller('editCustomerCtrl', function ($scope, $rootScope, $routeParams, $
         if(confirm("Are you sure to delete customer number: "+$scope.originalCustomer._id)==true)
         //console.log(customer.customerNumber);
             Data.post('deleteCustomer',{customerId: customer.customerNumber}).then(function (result) {
-                
+                notifyUser(result);
             });
-      };
+    };
 
     $scope.saveCustomer = function(customer) {
         $location.path('/customers');
@@ -43,8 +43,14 @@ app.controller('editCustomerCtrl', function ($scope, $rootScope, $routeParams, $
         }
         
         Data.post($controllerName,{customer:customer}).then(function (result) {
-              //console.log(result);
-              Notification('Primary notification');
+            notifyUser(result);
         });
     };
+    
+    function notifyUser(result) {
+        if(result.status=="Success")
+                Notification.success(result.msg);
+        else 
+                Notification.error(result.msg);
+    }
 });
