@@ -1,4 +1,4 @@
-var app = angular.module('BeautificationApp', ['ngRoute', 'ngAnimate', 'toaster','ui.bootstrap']);
+var app = angular.module('BeautificationApp', ['ngRoute', 'ngAnimate', 'toaster', 'ui.bootstrap', 'ui-notification']);
 
 app.config(['$routeProvider',
   function ($routeProvider) {

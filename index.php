@@ -10,6 +10,8 @@
           <link href="css/bootstrap.min.css" rel="stylesheet">
             <link href="css/custom.css" rel="stylesheet">
               <link href="css/toaster.css" rel="stylesheet">
+              <link href="css/angular-ui-notification.min.css" rel="stylesheet">
+              <link href="css/angular-ui-notification.css" rel="stylesheet">
                 <style>
                   a {
                   color: orange;
@@ -35,6 +37,8 @@
   <toaster-container toaster-options="{'time-out': 3000}"></toaster-container>
   <!-- Libs -->
   <script src="js/angular.min.js"></script>
+  <script src="js/angular-ui-notification.js"></script>
+  <script src="js/angular-ui-notification.min.js"></script>
   <script src="js/angular-route.min.js"></script>
   <script src="js/angular-animate.min.js" ></script>
   <script src="js/ui-bootstrap-tpls-0.10.0.min.js"></script>

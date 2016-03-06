@@ -1,4 +1,4 @@
-app.controller('editCustomerCtrl', function ($scope, $rootScope, $routeParams, $location, $http, Data) {
+app.controller('editCustomerCtrl', function ($scope, $rootScope, $routeParams, $location, $http, Data, Notification) {
     //initially set those objects to null to avoid undefined error
     
     var customerId = ($routeParams.customerID) ? parseInt($routeParams.customerID) : 0;
@@ -44,6 +44,7 @@ app.controller('editCustomerCtrl', function ($scope, $rootScope, $routeParams, $
         
         Data.post($controllerName,{customer:customer}).then(function (result) {
               //console.log(result);
+              Notification('Primary notification');
         });
     };
 });
