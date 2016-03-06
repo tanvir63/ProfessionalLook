@@ -112,9 +112,9 @@ class DbHandler {
         $query = "DELETE FROM ".$table_name." WHERE ".$primary_key_name." = ".$primary_key_value;
         
         $r = $this->conn->query($query) or die($this->conn->error.__LINE__);
-        require_once '../libs/ChromePhp.php'; 
-        ChromePhp::log("delete result is : ");
-			ChromePhp::log($r);
+        //require_once '../libs/ChromePhp.php'; 
+        //ChromePhp::log("delete result is : ");
+			//ChromePhp::log($r);
         if ($r) 
         {
             //$new_row_id = $this->conn->insert_id;

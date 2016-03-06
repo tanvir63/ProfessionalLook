@@ -23,16 +23,15 @@ app.controller('editCustomerCtrl', function ($scope, $rootScope, $routeParams, $
     }
 
     $scope.deleteCustomer = function(customer) {
-        $location.path('/customers');
         if(confirm("Are you sure to delete customer number: "+$scope.originalCustomer._id)==true)
         //console.log(customer.customerNumber);
             Data.post('deleteCustomer',{customerId: customer.customerNumber}).then(function (result) {
+                $location.path('/customers/');
                 notifyUser(result);
             });
     };
 
     $scope.saveCustomer = function(customer) {
-        $location.path('/customers');
         $controllerName="";
         if (customerId > 0) {
             $controllerName='editCustomer';
@@ -43,6 +42,7 @@ app.controller('editCustomerCtrl', function ($scope, $rootScope, $routeParams, $
         }
         
         Data.post($controllerName,{customer:customer}).then(function (result) {
+            $location.path('/customers/');
             notifyUser(result);
         });
     };
